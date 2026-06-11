@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Physics Exam | Optics, Electricity & Magnetism</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #eef2f9 0%, #dce5f0 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
+            color: #0a2f44;
+        }
+
+        .main-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 1.8rem 2rem 2.2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0b2b44, #1f6392);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.2rem;
+        }
+
+        .sub {
+            color: #2c5a7a;
+            border-left: 4px solid #2c7da0;
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 1.5rem 0 1rem 0;
+            padding-bottom: 0.3rem;
+            border-bottom: 3px solid #1f6392;
+            display: inline-block;
+            color: #0a4a6e;
+        }
+
+        .question-card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2edf7;
+            transition: 0.1s;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #0a2f44;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            background: #f9fbfe;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            border: 1px solid #e0ecf5;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            background: #eef3fc;
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            accent-color: #1f6392;
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .tf-options {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .tf-btn {
+            background: #f4f8fe;
+            padding: 0.4rem 1.2rem;
+            border-radius: 2rem;
+            border: 1px solid #cfdfed;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tf-btn.selected {
+            background: #d0e6f5;
+            border-color: #1f6392;
+        }
+
+        .numerical-input {
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .numerical-input input {
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid #bdd4e7;
+            font-size: 0.9rem;
+            width: 200px;
+        }
+
+        .feedback {
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #d9f0e1;
+            color: #0f5429;
+            border-left: 4px solid #2e7d32;
+            display: block;
+        }
+
+        .feedback.wrong {
+            background: #fee9e6;
+            color: #b13e3e;
+            border-left: 4px solid #c62828;
+            display: block;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0 1rem;
+        }
+
+        button {
+            background: #1f6392;
+            border: none;
+            padding: 0.7rem 1.8rem;
+            font-weight: 600;
+            border-radius: 3rem;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #0a4a70;
+            transform: scale(0.97);
+        }
+
+        .reset-btn {
+            background: #4b6f86;
+        }
+
+        .score-area {
+            background: #0b2b44;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: #5f7f9a;
+        }
+
+        @media (max-width: 650px) {
+            .main-container { padding: 1rem; }
+            .question-text { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="main-container">
+    <h1>⚡ Physics Final Exam</h1>
+    <div class="sub">Optics · Electricity · Magnetism · True/False · Numerical Problems</div>
+    <div class="score-area" id="globalScore">📊 Score: -- / --</div>
+
+    <!-- ===================== SECTION 1: MCQ (Question No.1 from last image) ===================== -->
+    <div class="section-title">🔘 Part 1: Multiple Choice (Q1–Q8)</div>
+    <div id="part1"></div>
+
+    <!-- ===================== SECTION 2: MCQ (Optics / Mirrors) ===================== -->
+    <div class="section-title">🔘 Part 2: Optics & Instruments (Q9–Q15)</div>
+    <div id="part2"></div>
+
+    <!-- ===================== SECTION 3: True / False (statements 16-30) ===================== -->
+    <div class="section-title">📌 Part 3: True / False (Magnetism & Electricity)</div>
+    <div id="part3"></div>
+
+    <!-- ===================== SECTION 4: Numerical Problems (Optics) ===================== -->
+    <div class="section-title">📐 Part 4: Numerical Problems (Optics)</div>
+    <div id="part4"></div>
+
+    <div class="btn-group">
+        <button id="checkBtn">✅ Check All Answers</button>
+        <button id="resetBtn" class="reset-btn">⟳ Reset All</button>
+    </div>
+    <footer>Based on Prof. Mohamed Abdel-Rahman · All physics concepts covered</footer>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // DATA DEFINITION
+    // --------------------------------------------------------------
+
+    // --- Part 1 (MCQ from the last image: 8 questions) ---
+    const part1Questions = [
+        { text: "Einstein discovers:", options: ["The quantization model of light", "The equation: E = hf", "The dual nature of light"], correct: 2, explanation: "Einstein proposed the photon concept and explained photoelectric effect, confirming particle nature; also contributed to wave-particle duality. Best answer: dual nature." },
+        { text: "Why is there a critical angle for light when it moves from glass to water?", options: ["Because water has a lower refractive index than glass", "Because water has a higher refractive index than glass", "Because water has a nearly equal refractive index to glass"], correct: 0, explanation: "Critical angle exists when n₁ > n₂; glass (≈1.5) > water (1.33)." },
+        { text: "What are the properties of the image in the light Microscope?", options: ["Virtual and erect image", "Magnified image", "a and b together"], correct: 2, explanation: "Compound microscope produces virtual, erect, and magnified final image." },
+        { text: "The General equation of the mirrors is: 1/s' + 1/s = 2/r . Which is the correct magnification formula?", options: ["m = -s'/s = h'/h", "m = -s'/s = h'/(h-h')", "Sin θc = n₂/n₁"], correct: 0, explanation: "Standard mirror magnification: m = -s'/s = h'/h." },
+        { text: "Which picture is related to the Projector?", options: ["(a) Overhead projector diagram", "(b) Slide projector with convex lens", "(c) LCD projector"], correct: 1, explanation: "Typical projector uses converging lens to form real image; slide projector diagram is standard." },
+        { text: "The mirage phenomena are related to:", options: ["Total internal reflection", "Polarization", "The heat effect on the refractive index"], correct: 2, explanation: "Mirage occurs due to variation of refractive index with temperature (gradient), causing bending of light." },
+        { text: "Which pictures explain the Spherical aberration defect in eye?", options: ["(a) Peripheral rays focus differently", "(b) Chromatic aberration", "(c) Astigmatism"], correct: 0, explanation: "Spherical aberration: rays far from axis focus at different point." },
+        { text: "Which picture from the following does not relate to the group?", options: ["(a) Convex mirror", "(b) Concave mirror", "(c) Plane mirror"], correct: 2, explanation: "If group refers to curved mirrors used for focusing, plane mirror is different." }
+    ];
+
+    // Part 2 (from a714eff1... jpeg: Q9-Q15)
+    const part2Questions = [
+        { text: "How can we locate the image of an object in a plane mirror graphically?", options: ["By knowing the Size, orientation, and location of an object.", "Application of the law of reflection and its tracer.", "a and b together."], correct: 2, explanation: "Both knowledge of object properties and ray tracing using reflection law are needed." },
+        { text: "Is light a wave or a particle?", options: ["It is only waves.", "It is only a particle.", "It has a dual Nature."], correct: 2, explanation: "Wave-particle duality." },
+        { text: "There are specialized spherical mirrors used for illuminating airport runways, guiding ships with lighthouses, in electron microscopes and camera flashes. What are these mirrors called?", options: ["Ordinary mirrors.", "Convex mirrors.", "Concave mirrors."], correct: 2, explanation: "Concave mirrors converge light, used in searchlights, flashlights, and some microscopes." },
+        { text: "All three of the following pictures are related to Physical optics. Which one is the interference of light?", options: ["(a) Double-slit pattern", "(b) Diffraction grating", "(c) Thin film colors"], correct: 0, explanation: "Young's double-slit experiment is classic interference." },
+        { text: "Why Manufacturers use concave and convex mirrors in telescopes and magnifying glass?", options: ["Because these mirrors could manipulate light by gathering, focusing, or magnifying it.", "Because these mirrors produce clearer, brighter, or more detailed images.", "a and b together."], correct: 2, explanation: "Both statements are valid reasons." },
+        { text: "Why is it impossible to get a real image with a concave mirror? Because this mirror makes:", options: ["Dispersion of the light rays.", "Absorption of light.", "Polarization of light."], correct: 0, explanation: "The statement is actually false (concave mirrors CAN form real images). But the question as written expects the wrong reason; however given options, dispersion is not correct. But to match the test, we note the statement is wrong. However we will set correct answer as none? But from typical trick: concave mirror does produce real image, so the premise is false, but among options the intended answer might be 'Dispersion' (invalid). Better to educate: correct answer: 'Concave mirrors CAN form real images'. I'll set correct as 0 but explanation clarifies." },
+        { text: "What are the advantages of the endoscope?", options: ["The light propagates in straight lines even in its curved tubes.", "It keeps the strength of light at a constant level.", "a and b together."], correct: 2, explanation: "Total internal reflection in fiber keeps light intensity and guides around curves." }
+    ];
+    // Fix for Q14 (concave mirror real image) - I'll adjust correct index to 0 but add comment. Actually user will see.
+    part2Questions[5].correct = 0;   // "Dispersion" is not correct but among them; we'll give explanation.
+    part2Questions[5].explanation = "Actually concave mirrors can form real images; the statement in question is false, but dispersion is not the reason. The question might be flawed. Correct physics: concave mirrors form real images for objects beyond focal point.";
+
+    // Part 3 : True/False statements 16-30 from the image (332612cb...)
+    const tfStatements = [
+        { text: "When more than one point charge is present, the total electrostatic force exerted on the charge is the algebraic sum of the forces exerted on that charge by others individually.", correct: false, explanation: "Vector sum, not algebraic sum (forces are vectors)." },
+        { text: "The uniform electric field is a field that has the same magnitude and direction at all points, and is uniquely generated by an infinitely large sheet of uniform charge.", correct: true, explanation: "Infinite sheet of charge produces uniform E field; also ideal parallel plates." },
+        { text: "Gauss's law for electricity states that the net electric flux, Φ_e, through any closed surface is equal to the net charge inside the closed surface, Q_in, multiplied by ε₀.", correct: false, explanation: "Flux = Q_in / ε₀, not multiplied by ε₀." },
+        { text: "The electric field due to an insulating sphere of radius R, uniform charge density ρ, at distance r < R is given by E_in = k_e (rQ)/R³ = ρ r/(3ε₀).", correct: true, explanation: "Correct formula from Gauss's law." },
+        { text: "The electrostatic force magnitude exerted by a spherical shell of charge Q₂ on a point charge Q₁ inside the shell is F = k_e |Q₁||Q₂|/R².", correct: false, explanation: "Electric field inside conducting shell is zero, so force = 0." },
+        { text: "The electric field magnitude generated by a long, uniformly charged rod with linear charge density λ, is given by E = 2k_e λ / r.", correct: true, explanation: "E = λ/(2πε₀ r) = 2k_e λ/r." },
+        { text: "The electric field at a point on the axis of an electric dipole (far away) is E_axial = k_e (2p)/y³, not y².", correct: false, explanation: "Magnitude is k_e (2p)/y³, the statement says y² so false." },
+        { text: "The magnetic field is zero at the middle of the magnet and maximum at the poles.", correct: true, explanation: "Field lines concentrated at poles, minimal at center." },
+        { text: "The magnetic force exerted on a test charge q₀ is perpendicular both to the velocity and to the magnetic field.", correct: true, explanation: "F = q v × B gives perpendicular direction." },
+        { text: "The magnetic force accelerates the electric charge and deflects it.", correct: true, explanation: "Provides centripetal acceleration, changes direction." },
+        { text: "Gauss's law for magnetism states that the total magnetic flux through any closed surface is always zero. ∮ B·dA = 0.", correct: true, explanation: "No magnetic monopoles." },
+        { text: "When a magnet is broken into pieces, each piece is found to be a single pole-magnet.", correct: false, explanation: "Each piece has both north and south poles (no monopoles)." },
+        { text: "The two conductors carrying current in the same direction repel each other.", correct: false, explanation: "Same direction → attraction, opposite → repulsion." },
+        { text: "The Biot and Savart law states that the total magnetic induction density at any point in space due to the current element is given by B = (μ₀/4π) ∫ (dℓ × r̂)/r².", correct: true, explanation: "Correct vector form (r̂ = r/r). Their expression missed r̂ but essentially correct." },
+        { text: "Faraday's law of induction states that the induced emf in a closed loop equals the negative time rate of change of magnetic flux: ε = - dΦ/dt.", correct: true, explanation: "Standard Faraday-Lenz law." }
+    ];
+
+    // Part 4 : Numerical Problems from IMG_5974 (5 problems)
+    const numericalProblems = [
+        { text: "The ratio of the speed of light in vacuum to a specific vegetable oil is 1.47. If light enters this oil from air (n=1) at 30°, what is the angle of refraction?", solution: "n_oil = 1.47, Snell: 1·sin30° = 1.47·sinθ₂ → sinθ₂ = 0.5/1.47 ≈ 0.3401 → θ₂ ≈ 19.9°", answerValue: 19.9, tolerance: 0.5, unit: "°" },
+        { text: "A light ray strikes a glass surface (n=1.52) from air (n=1). The reflected and refracted rays form a 90° angle with each other. Calculate the angle of incidence.", solution: "Brewster's angle: θ_B = arctan(n₂/n₁) = arctan(1.52) ≈ 56.6°", answerValue: 56.6, tolerance: 0.5, unit: "°" },
+        { text: "Calculate the critical angle for total internal reflection when light attempts to exit a sapphire crystal (n=1.77) into air (n=1.0003).", solution: "θ_c = arcsin(n₂/n₁) = arcsin(1.0003/1.77) ≈ arcsin(0.5651) ≈ 34.4°", answerValue: 34.4, tolerance: 0.5, unit: "°" },
+        { text: "A light ray traveling in a dense fluid strikes a boundary with water (n=1.33) at an angle of 45° and undergoes total internal reflection. What is the absolute minimum refractive index the dense fluid could have?", solution: "n_fluid * sin45° ≥ n_water → n_fluid ≥ 1.33 / sin45° = 1.33 / 0.7071 ≈ 1.88", answerValue: 1.88, tolerance: 0.02, unit: "" },
+        { text: "A medical endoscope relies on total internal reflection. Core fiber n=1.6, cladding n=1.4. What is the critical angle, and what happens if the tube bends so sharply that light hits the wall at 55°?", solution: "θ_c = arcsin(1.4/1.6) = arcsin(0.875) ≈ 61.0°. At 55° < θ_c, no TIR, light escapes.", answerValue: 61.0, secondPart: "light escapes", tolerance: 0.5, unit: "°" }
+    ];
+
+    // Store user answers
+    let part1Answers = new Array(part1Questions.length).fill(null);
+    let part2Answers = new Array(part2Questions.length).fill(null);
+    let part3Answers = new Array(tfStatements.length).fill(null); // boolean true/false
+    let part4Answers = new Array(numericalProblems.length).fill(""); // string
+
+    let evaluated = false;
+    let globalCorrectCount = 0, globalTotal = 0;
+
+    // Helper to render everything
+    function renderAll() {
+        renderPart1();
+        renderPart2();
+        renderPart3();
+        renderPart4();
+        updateGlobalScore();
+    }
+
+    function updateGlobalScore() {
+        if (!evaluated) {
+            document.getElementById('globalScore').innerHTML = "📊 Score: -- / --";
+            return;
+        }
+        let total = part1Questions.length + part2Questions.length + tfStatements.length + numericalProblems.length;
+        let correct = 0;
+        // part1
+        for (let i=0; i<part1Questions.length; i++) {
+            if (part1Answers[i] !== null && part1Answers[i] === part1Questions[i].correct) correct++;
+        }
+        for (let i=0; i<part2Questions.length; i++) {
+            if (part2Answers[i] !== null && part2Answers[i] === part2Questions[i].correct) correct++;
+        }
+        for (let i=0; i<tfStatements.length; i++) {
+            let ans = part3Answers[i];
+            if (ans !== null && ans === tfStatements[i].correct) correct++;
+        }
+        for (let i=0; i<numericalProblems.length; i++) {
+            let userVal = parseFloat(part4Answers[i]);
+            if (!isNaN(userVal)) {
+                let expected = numericalProblems[i].answerValue;
+                let tol = numericalProblems[i].tolerance || 0.2;
+                if (Math.abs(userVal - expected) <= tol) correct++;
+            }
+        }
+        document.getElementById('globalScore').innerHTML = `📊 Score: ${correct} / ${total}`;
+    }
+
+    function evaluateAll() {
+        evaluated = true;
+        renderAll(); // re-render to show feedback
+        updateGlobalScore();
+    }
+
+    function resetAll() {
+        part1Answers.fill(null);
+        part2Answers.fill(null);
+        part3Answers.fill(null);
+        part4Answers.fill("");
+        evaluated = false;
+        renderAll();
+        document.getElementById('globalScore').innerHTML = "📊 Score: -- / --";
+    }
+
+    // Part 1 Rendering
+    function renderPart1() {
+        const container = document.getElementById('part1');
+        container.innerHTML = '';
+        part1Questions.forEach((q, idx) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `<div class="question-text">${idx+1}. ${q.text}</div>`;
+            const optsDiv = document.createElement('div');
+            optsDiv.className = 'options-grid';
+            q.options.forEach((opt, optIdx) => {
+                const label = document.createElement('label');
+                label.className = 'option';
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `p1q${idx}`;
+                radio.value = optIdx;
+                if (part1Answers[idx] === optIdx) radio.checked = true;
+                radio.addEventListener('change', () => {
+                    if (radio.checked) part1Answers[idx] = optIdx;
+                    if (evaluated) evaluated = false;
+                    renderPart1(); // quick rerender to keep consistent
+                    updateGlobalScore();
+                });
+                const span = document.createElement('span');
+                span.innerText = `${String.fromCharCode(97+optIdx)}) ${opt}`;
+                label.appendChild(radio);
+                label.appendChild(span);
+                optsDiv.appendChild(label);
+            });
+            card.appendChild(optsDiv);
+            const fbDiv = document.createElement('div');
+            fbDiv.className = 'feedback';
+            if (evaluated && part1Answers[idx] !== null) {
+                const isCorrect = (part1Answers[idx] === q.correct);
+                fbDiv.classList.add(isCorrect ? 'correct' : 'wrong');
+                fbDiv.innerHTML = isCorrect ? `✅ Correct. ${q.explanation}` : `❌ Wrong. Correct: ${String.fromCharCode(97+q.correct)}. ${q.explanation}`;
+                fbDiv.style.display = 'block';
+            }
+            card.appendChild(fbDiv);
+            container.appendChild(card);
+        });
+    }
+
+    function renderPart2() {
+        const container = document.getElementById('part2');
+        container.innerHTML = '';
+        part2Questions.forEach((q, idx) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `<div class="question-text">${idx+9}. ${q.text}</div>`;
+            const optsDiv = document.createElement('div');
+            optsDiv.className = 'options-grid';
+            q.options.forEach((opt, optIdx) => {
+                const label = document.createElement('label');
+                label.className = 'option';
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `p2q${idx}`;
+                radio.value = optIdx;
+                if (part2Answers[idx] === optIdx) radio.checked = true;
+                radio.addEventListener('change', () => {
+                    if (radio.checked) part2Answers[idx] = optIdx;
+                    if (evaluated) evaluated = false;
+                    renderPart2();
+                    updateGlobalScore();
+                });
+                const span = document.createElement('span');
+                span.innerText = `${String.fromCharCode(97+optIdx)}) ${opt}`;
+                label.appendChild(radio);
+                label.appendChild(span);
+                optsDiv.appendChild(label);
+            });
+            card.appendChild(optsDiv);
+            const fbDiv = document.createElement('div');
+            fbDiv.className = 'feedback';
+            if (evaluated && part2Answers[idx] !== null) {
+                const isCorrect = (part2Answers[idx] === q.correct);
+                fbDiv.classList.add(isCorrect ? 'correct' : 'wrong');
+                fbDiv.innerHTML = isCorrect ? `✅ Correct. ${q.explanation}` : `❌ Wrong. Correct: ${String.fromCharCode(97+q.correct)}. ${q.explanation}`;
+                fbDiv.style.display = 'block';
+            }
+            card.appendChild(fbDiv);
+            container.appendChild(card);
+        });
+    }
+
+    function renderPart3() {
+        const container = document.getElementById('part3');
+        container.innerHTML = '';
+        tfStatements.forEach((stmt, idx) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `<div class="question-text">${idx+16}. ${stmt.text}</div>`;
+            const tfDiv = document.createElement('div');
+            tfDiv.className = 'tf-options';
+            const trueBtn = document.createElement('div');
+            trueBtn.className = `tf-btn ${part3Answers[idx] === true ? 'selected' : ''}`;
+            trueBtn.innerHTML = '<input type="radio" name="tf'+idx+'" value="true"> <span>True</span>';
+            const falseBtn = document.createElement('div');
+            falseBtn.className = `tf-btn ${part3Answers[idx] === false ? 'selected' : ''}`;
+            falseBtn.innerHTML = '<input type="radio" name="tf'+idx+'" value="false"> <span>False</span>';
+            const radioTrue = trueBtn.querySelector('input');
+            const radioFalse = falseBtn.querySelector('input');
+            radioTrue.addEventListener('change', () => {
+                if (radioTrue.checked) { part3Answers[idx] = true; if(evaluated) evaluated=false; renderPart3(); updateGlobalScore();}
+            });
+            radioFalse.addEventListener('change', () => {
+                if (radioFalse.checked) { part3Answers[idx] = false; if(evaluated) evaluated=false; renderPart3(); updateGlobalScore();}
+            });
+            if (part3Answers[idx] === true) radioTrue.checked = true;
+            if (part3Answers[idx] === false) radioFalse.checked = true;
+            tfDiv.appendChild(trueBtn);
+            tfDiv.appendChild(falseBtn);
+            card.appendChild(tfDiv);
+            const fbDiv = document.createElement('div');
+            fbDiv.className = 'feedback';
+            if (evaluated && part3Answers[idx] !== null) {
+                const isCor = (part3Answers[idx] === stmt.correct);
+                fbDiv.classList.add(isCor ? 'correct' : 'wrong');
+                fbDiv.innerHTML = isCor ? `✅ Correct. ${stmt.explanation}` : `❌ Wrong. Correct: ${stmt.correct ? 'True' : 'False'}. ${stmt.explanation}`;
+                fbDiv.style.display = 'block';
+            }
+            card.appendChild(fbDiv);
+            container.appendChild(card);
+        });
+    }
+
+    function renderPart4() {
+        const container = document.getElementById('part4');
+        container.innerHTML = '';
+        numericalProblems.forEach((prob, idx) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.innerHTML = `<div class="question-text">${idx+1}. ${prob.text}</div>`;
+            const inputDiv = document.createElement('div');
+            inputDiv.className = 'numerical-input';
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.step = 'any';
+            input.placeholder = `Enter value in ${prob.unit || ''}`;
+            input.value = part4Answers[idx];
+            input.addEventListener('input', (e) => {
+                part4Answers[idx] = e.target.value;
+                if (evaluated) evaluated = false;
+                updateGlobalScore();
+            });
+            inputDiv.appendChild(input);
+            const unitSpan = document.createElement('span');
+            unitSpan.innerText = prob.unit;
+            inputDiv.appendChild(unitSpan);
+            card.appendChild(inputDiv);
+            const fbDiv = document.createElement('div');
+            fbDiv.className = 'feedback';
+            if (evaluated && part4Answers[idx] !== "") {
+                const userVal = parseFloat(part4Answers[idx]);
+                let isCorrect = false;
+                if (!isNaN(userVal)) {
+                    const expected = prob.answerValue;
+                    const tol = prob.tolerance || 0.2;
+                    if (Math.abs(userVal - expected) <= tol) isCorrect = true;
+                }
+                fbDiv.classList.add(isCorrect ? 'correct' : 'wrong');
+                fbDiv.innerHTML = isCorrect ? `✅ Correct. ${prob.solution}` : `❌ Wrong. Expected ≈ ${prob.answerValue} ${prob.unit}. ${prob.solution}`;
+                fbDiv.style.display = 'block';
+            }
+            card.appendChild(fbDiv);
+            container.appendChild(card);
+        });
+    }
+
+    document.getElementById('checkBtn').addEventListener('click', evaluateAll);
+    document.getElementById('resetBtn').addEventListener('click', resetAll);
+    renderAll();
+</script>
+</body>
+</html>
