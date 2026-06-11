@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Magnetism Mastery Exam | 30 MCQs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(145deg, #f0f4fa 0%, #e2e8f0 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1rem;
+            color: #1a2c3e;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+            padding: 1.8rem 2rem 2.2rem;
+        }
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0b2b44, #1f6392);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.3rem;
+        }
+        .sub {
+            color: #2c5a7a;
+            border-left: 4px solid #2c7da0;
+            padding-left: 1rem;
+            margin-bottom: 1.8rem;
+            font-weight: 500;
+        }
+        .quiz-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px dashed #cbdde9;
+        }
+        .score-area, .answered-count {
+            background: #0b2b44;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+        }
+        .answered-count {
+            background: #2c5a7a;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e2edf7;
+            transition: 0.1s;
+        }
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0a2f44;
+            margin-bottom: 1rem;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 0.8rem;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            background: #f9fbfe;
+            padding: 0.6rem 1rem;
+            border-radius: 1rem;
+            border: 1px solid #e0ecf5;
+            cursor: pointer;
+        }
+        .option:hover {
+            background: #eef3fc;
+        }
+        input[type="radio"] {
+            accent-color: #1f6392;
+            width: 1rem;
+            height: 1rem;
+        }
+        .feedback {
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            background: #f0f3f8;
+        }
+        .correct-feedback {
+            background: #d9f0e1;
+            color: #0f5429;
+            border-left: 4px solid #2e7d32;
+        }
+        .wrong-feedback {
+            background: #fee9e6;
+            color: #b13e3e;
+            border-left: 4px solid #c62828;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        button {
+            background: #1f6392;
+            border: none;
+            padding: 0.7rem 1.8rem;
+            font-weight: 600;
+            border-radius: 3rem;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        button:hover {
+            background: #0a4a70;
+            transform: scale(0.97);
+        }
+        .reset-btn {
+            background: #4b6f86;
+        }
+        .submit-all {
+            background: #2c7a4d;
+        }
+        .final-result {
+            margin-top: 1.8rem;
+            background: #e2eaf1;
+            border-radius: 1.5rem;
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: none;
+        }
+        footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.7rem;
+            color: #6a8eaa;
+        }
+        @media (max-width: 650px) {
+            .container { padding: 1rem; }
+            .question-text { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🧲 MAGNETISM: 30 MCQs</h1>
+    <div class="sub">Based on Biot–Savart, Ampere, Faraday, Lenz, Lorentz, solenoids, dipoles & more</div>
+    <div class="quiz-status">
+        <div class="answered-count">📋 Answered: <span id="answeredCount">0</span>/30</div>
+        <div class="score-area" id="liveScore">🏆 Score: --/30</div>
+    </div>
+    <div id="quizContainer"></div>
+    <div class="btn-group">
+        <button id="checkAllBtn" class="submit-all">✅ Submit & Show Score</button>
+        <button id="resetBtn" class="reset-btn">⟳ Reset All Answers</button>
+    </div>
+    <div id="finalResult" class="final-result"></div>
+    <footer>Prof. Mohamed Abdel-Rahman | Magnetic fields, forces, induction, and applications.</footer>
+</div>
+
+<script>
+    // ---------- 30 comprehensive MCQs ----------
+    const questions = [
+        { text: "Which direction do magnetic field lines point outside a bar magnet?", options: ["South to North", "North to South", "East to West", "Radial outward"], correct: 1, explanation: "Outside: North → South; inside: South → North (closed loops)." },
+        { text: "A stationary charge in a magnetic field experiences:", options: ["Maximum force", "Force parallel to B", "Force perpendicular to B", "Zero magnetic force"], correct: 3, explanation: "F = q v × B; if v=0 → F=0." },
+        { text: "SI unit of magnetic flux is:", options: ["Tesla", "Weber", "Gauss", "Henry"], correct: 1, explanation: "Φ_B unit: Weber (Wb) = T·m²." },
+        { text: "Gauss's law for magnetism states:", options: ["∮ B·dA = μ₀ I_enc", "∮ B·dA = 0", "∮ E·dA = Q/ε₀", "∮ B·dl = μ₀ I_enc"], correct: 1, explanation: "Total magnetic flux through closed surface = 0 → no monopoles." },
+        { text: "Magnetic force on a moving charge is always perpendicular to:", options: ["Velocity only", "Magnetic field only", "Both velocity & field", "None"], correct: 2, explanation: "F = q v × B gives perpendicular to both v and B." },
+        { text: "For a current loop in uniform B, maximum torque occurs when:", options: ["Loop plane ⊥ B", "Loop plane ∥ B", "Loop area is min", "Current is zero"], correct: 1, explanation: "τ = N I A B sinθ, max when sinθ=1 → plane ∥ B (M ⊥ B)." },
+        { text: "Which law gives magnetic field from a current element IdL?", options: ["Ampere's law", "Gauss's law", "Biot-Savart law", "Faraday's law"], correct: 2, explanation: "dB = (μ₀/4π) (I dL × r̂)/r²." },
+        { text: "Magnetic field at distance r from a long straight wire (current I) is:", options: ["B = μ₀ I/(2π r)", "B = μ₀ I/(4π r²)", "B = μ₀ I/(2r)", "B = μ₀ I r/2"], correct: 0, explanation: "From Ampere: B = μ₀ I/(2π r)." },
+        { text: "Two parallel wires with currents in the same direction will:", options: ["Repel", "Attract", "No force", "Rotate"], correct: 1, explanation: "Magnetic attraction between parallel same-direction currents." },
+        { text: "Magnetic dipole moment for N-turn coil (area A, current I):", options: ["M = N I A", "M = I A / N", "M = N I / A", "M = B I A"], correct: 0, explanation: "M = N I A n̂." },
+        { text: "Velocity selector condition for undeflected particles:", options: ["v = E / B", "v = B / E", "v = E·B", "v = qE/m"], correct: 0, explanation: "qE = qvB → v = E/B." },
+        { text: "Radius of circular path for charged particle in B-field:", options: ["R = m v / (q B)", "R = q B / (m v)", "R = 2π m/(qB)", "R = vB/q"], correct: 0, explanation: "qvB = mv²/R → R = mv/(qB)." },
+        { text: "Cyclotron angular frequency ω is:", options: ["ω = qB/m", "ω = m/(qB)", "ω = 2π/T", "Both ω = qB/m and ω = 2π/T"], correct: 3, explanation: "ω = qB/m = 2π/T." },
+        { text: "Faraday's law states induced emf =", options: ["-dΦ_B/dt", "+dΦ_B/dt", "μ₀ I_enc", "B·A"], correct: 0, explanation: "ε = -dΦ_B/dt (Lenz sign)." },
+        { text: "Lenz's law says induced current:", options: ["Opposes flux change", "Reinforces flux change", "Is independent", "Always zero"], correct: 0, explanation: "Induced current creates B field opposing original flux change." },
+        { text: "Outside an ideal solenoid, magnetic field is:", options: ["μ₀ n I", "Zero (approx)", "μ₀ I/(2πr)", "Same as inside"], correct: 1, explanation: "External field negligible." },
+        { text: "Field inside ideal solenoid (n turns/m, current I):", options: ["B = μ₀ n I", "B = μ₀ I/(2π r)", "B = μ₀ N I / L", "Both A and C"], correct: 3, explanation: "B = μ₀ (N/L) I = μ₀ n I." },
+        { text: "Field at center of circular loop radius a, current I:", options: ["μ₀ I/(2a)", "μ₀ I/(2π a)", "μ₀ I a²/2x³", "0"], correct: 0, explanation: "At center: B = μ₀ I/(2a)." },
+        { text: "Ampere's law ∮ B·dl = μ₀ I_enc is best for:", options: ["Any distribution", "Symmetric currents", "Only wires", "Electrostatics"], correct: 1, explanation: "High symmetry (infinite wire, solenoid)." },
+        { text: "Magnetic flux through surface is:", options: ["∮ B·dA", "∫ B·dA", "∫ E·dA", "B × A"], correct: 1, explanation: "Φ_B = ∫ B·dA." },
+        { text: "If velocity is parallel to B, magnetic force is:", options: ["Maximum", "Zero", "q v B", "Depends on charge"], correct: 1, explanation: "sin(0)=0 → force = 0." },
+        { text: "In F = I L × B, vector L points:", options: ["Along B", "Direction of current", "Opposite to current", "Radial"], correct: 1, explanation: "L is in the direction of conventional current." },
+        { text: "1 Tesla can be expressed as:", options: ["N/(A·m)", "Wb/m²", "kg/(C·s)", "All of these"], correct: 3, explanation: "All equivalent definitions." },
+        { text: "In non-uniform B-field, a magnetic dipole experiences:", options: ["Torque only", "Net force & torque", "Force only", "Nothing"], correct: 1, explanation: "Both translational force and torque." },
+        { text: "Magnetic domains in unmagnetized ferromagnet:", options: ["All aligned", "Random orientation", "Circular", "Nonexistent"], correct: 1, explanation: "Domains randomly oriented, net magnetization zero." },
+        { text: "Right-hand rule for straight wire: thumb along I, fingers show:", options: ["E field", "B field direction", "Force", "Dipole moment"], correct: 1, explanation: "Fingers curl in direction of B circles." },
+        { text: "Field on axis of circular loop (distance x from center):", options: ["B = μ₀ I a² / (2(a²+x²)^{3/2})", "μ₀ I/(2a)", "μ₀ I/(2π x)", "0"], correct: 0, explanation: "Standard formula B_x = μ₀ I a²/(2(a²+x²)^{3/2})." },
+        { text: "Potential energy of magnetic dipole M in B:", options: ["M·B", "-M·B", "MB sinθ", "−MB cosθ (common)"], correct: 3, explanation: "U = -M·B = -MB cosθ (minimum when aligned)." },
+        { text: "If you break a bar magnet:", options: ["Get monopoles", "Each piece has N & S poles", "Magnetism lost", "Only large piece magnetic"], correct: 1, explanation: "No magnetic monopoles exist." },
+        { text: "μ₀/(4π) equals:", options: ["10⁻⁷ T·m/A", "4π×10⁻⁷", "2×10⁻⁷", "10⁻⁶"], correct: 0, explanation: "μ₀ = 4π×10⁻⁷ ⇒ μ₀/(4π) = 10⁻⁷ T·m/A." }
+    ];
+
+    let userAnswers = new Array(questions.length).fill(null);
+    let evaluated = false;
+    let answerCorrect = new Array(questions.length).fill(false);
+
+    const container = document.getElementById('quizContainer');
+    const answeredSpan = document.getElementById('answeredCount');
+    const scoreSpan = document.getElementById('liveScore');
+    const finalDiv = document.getElementById('finalResult');
+
+    function updateStats() {
+        const answered = userAnswers.filter(a => a !== null).length;
+        answeredSpan.innerText = answered;
+        if (evaluated) {
+            let correctCount = answerCorrect.filter(c => c === true).length;
+            scoreSpan.innerText = `🏆 Score: ${correctCount}/30`;
+        } else {
+            scoreSpan.innerText = `🏆 Score: --/30`;
+        }
+    }
+
+    function computeAndStoreCorrectness() {
+        let correctCount = 0;
+        for (let i = 0; i < questions.length; i++) {
+            let ans = userAnswers[i];
+            if (ans === null) { answerCorrect[i] = false; continue; }
+            let isCor = (ans === questions[i].correct);
+            answerCorrect[i] = isCor;
+            if (isCor) correctCount++;
+        }
+        return correctCount;
+    }
+
+    function renderQuestions() {
+        container.innerHTML = '';
+        questions.forEach((q, idx) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-text';
+            qDiv.innerText = `${idx+1}. ${q.text}`;
+            card.appendChild(qDiv);
+
+            const optsDiv = document.createElement('div');
+            optsDiv.className = 'options';
+            q.options.forEach((opt, optIdx) => {
+                const label = document.createElement('label');
+                label.className = 'option';
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q${idx}`;
+                radio.value = optIdx;
+                if (userAnswers[idx] === optIdx) radio.checked = true;
+                radio.addEventListener('change', () => {
+                    if (radio.checked) {
+                        userAnswers[idx] = optIdx;
+                        if (evaluated) {
+                            evaluated = false;
+                            finalDiv.style.display = 'none';
+                            answerCorrect.fill(false);
+                        }
+                        updateStats();
+                        const oldFb = card.querySelector('.feedback');
+                        if (oldFb) oldFb.remove();
+                    }
+                });
+                const span = document.createElement('span');
+                span.innerText = `${String.fromCharCode(65+optIdx)}. ${opt}`;
+                label.appendChild(radio);
+                label.appendChild(span);
+                optsDiv.appendChild(label);
+            });
+            card.appendChild(optsDiv);
+            if (evaluated && answerCorrect[idx] !== undefined) {
+                const fb = document.createElement('div');
+                fb.className = 'feedback';
+                if (answerCorrect[idx]) {
+                    fb.classList.add('correct-feedback');
+                    fb.innerHTML = `✅ Correct. ${q.explanation}`;
+                } else {
+                    fb.classList.add('wrong-feedback');
+                    const correctLetter = String.fromCharCode(65 + q.correct);
+                    fb.innerHTML = `❌ Wrong. Correct: ${correctLetter}. ${q.explanation}`;
+                }
+                card.appendChild(fb);
+            }
+            container.appendChild(card);
+        });
+        updateStats();
+    }
+
+    function submitExam() {
+        const anyAnswered = userAnswers.some(a => a !== null);
+        if (!anyAnswered) { alert("Please answer at least one question before submitting."); return; }
+        const totalCorrect = computeAndStoreCorrectness();
+        evaluated = true;
+        const percent = Math.round((totalCorrect/30)*100);
+        finalDiv.style.display = 'block';
+        finalDiv.innerHTML = `🎯 FINAL SCORE: ${totalCorrect} / 30 (${percent}%)<br> ${totalCorrect === 30 ? "🏅 Perfect! Physics Master!" : totalCorrect >= 24 ? "👍 Very good! Review the missed ones." : "📚 Study explanations and try again."}`;
+        renderQuestions();
+    }
+
+    function resetExam() {
+        userAnswers.fill(null);
+        answerCorrect.fill(false);
+        evaluated = false;
+        finalDiv.style.display = 'none';
+        renderQuestions();
+    }
+
+    document.getElementById('checkAllBtn').addEventListener('click', submitExam);
+    document.getElementById('resetBtn').addEventListener('click', resetExam);
+    renderQuestions();
+</script>
+</body>
+</html>
